@@ -1,23 +1,22 @@
-import logo from './logo.svg';
+import { createContext, useRef, useState } from "react";
 import './App.css';
+import Barcode from "./barcode";
+import CreateBarcode from "./barcode";
 
 function App() {
+  const [barcodeVal, setBarcodeVal] = useState("")
+  const barcode = useRef()
+  const createBarcodeImage = (e) => {
+    e.preventDefault()
+    setBarcodeVal(barcode.current.value)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form>
+        <input ref={barcode} type='text' />
+        <input type="submit" onClick={(e) => createBarcodeImage(e)} value="create barcode"/>
+      </form>
+      <Barcode barcodeVal={barcodeVal} />
     </div>
   );
 }
